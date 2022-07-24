@@ -1,0 +1,11 @@
+{
+    "name": "Dell Thermal Management",
+    "description": "Add an ability to manage Dell thermal profiles from system menu",
+    "uuid": "dell-thermal-management@dolszewski97.github.io",
+    "settings-schema": "org.gnome.shell.extensions.dellthermalmanagement",
+    "gettext-domain": "dell-thermal-management",
+    "shell-version": [
+      "42"
+    ]
+  }
+  
