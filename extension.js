@@ -95,10 +95,13 @@ class Extension {
         optimized.connect('activate', () => {
             this._execCctk(
                 ['--ThermalManagement=Optimized'],
-                () => this._setThermalOrnament('optimized')
-            );
+                () => {
+                    this._setThermalOrnament('optimized');
 
-            this._settings.set_string("current-thermal-mode", "optimized");
+                    this._storeThermalMode("optimized");
+                    this._notify("Optimized");
+                }
+            );
         });
 
         return optimized;
@@ -116,10 +119,14 @@ class Extension {
         quiet.connect('activate', () => {
             this._execCctk(
                 ['--ThermalManagement=Quiet'],
-                () => this._setThermalOrnament('quiet')
+                () => {
+                    this._setThermalOrnament('quiet');
+
+                    this._storeThermalMode("quiet");
+                    this._notify("Quiet");
+                }
             );
 
-            this._settings.set_string("current-thermal-mode", "quiet");
         });
 
         return quiet;
@@ -137,10 +144,13 @@ class Extension {
         cool.connect('activate', () => {
             this._execCctk(
                 ['--ThermalManagement=Cool'],
-                () => this._setThermalOrnament('cool')
-            );
+                () => {
+                    this._setThermalOrnament('cool');
 
-            this._settings.set_string("current-thermal-mode", "cool");
+                    this._storeThermalMode("cool");
+                    this._notify("Cool");
+                }
+            );
         });
 
         return cool;
@@ -158,10 +168,13 @@ class Extension {
         ultraPerformance.connect('activate', () => {
             this._execCctk(
                 ['--ThermalManagement=UltraPerformance'],
-                () => this._setThermalOrnament('ultraPerformance')
-            );
+                () =>  {
+                    this._setThermalOrnament('ultraPerformance');
 
-            this._settings.set_string("current-thermal-mode", "ultraPerformance");
+                    this._storeThermalMode("ultraPerformance");
+                    this._notify("Ultra Performance");
+                }
+            );
         });
 
         return ultraPerformance;
@@ -218,8 +231,12 @@ class Extension {
         );
     }
 
-    _setInitThermalOrnament() {
+    _notify(mode) {
+        Main.notify("Dell Thermal Mode changed to " + mode);
+    }
 
+    _storeThermalMode(mode) {
+        this._settings.set_string("current-thermal-mode", mode);
     }
 }
 
